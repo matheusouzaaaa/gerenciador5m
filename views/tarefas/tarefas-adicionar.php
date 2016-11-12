@@ -56,13 +56,6 @@
                                         </div>
 
                                         <div class="control-group">
-                                            <label class="control-label">Comentários</label>
-                                            <div class="controls">
-                                                <textarea class="span12 ckeditor" rows="5" style="height:100px;" name="comentarios"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="control-group">
                                             <label class="control-label">Responsável</label>
                                             <div class="controls">
                                                 <select name="tb_usuarios_id" tabindex="1" data-placeholder="Selecione..." class="span12">

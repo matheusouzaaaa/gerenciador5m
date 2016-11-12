@@ -644,6 +644,26 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
     font-size: 14px;
     margin-top: 5px;
 }
+.widget-tasks-assigned .rightboxes1 {
+    position:relative;
+    right:0;
+    float:right;
+    width: 30%;
+}
+.widget-tasks-assigned .rightboxes1 li{
+    border-left: 1px solid #DDDDDD;
+    float: left;
+    font-size: 18px;
+    padding: 15px 10px;
+    text-align: center;
+    width: 50%;
+}
+.widget-tasks-assigned .rightboxes1 li span{
+    color: #CCCCCC;
+    display: block;
+    font-size: 14px;
+    margin-top: 5px;
+}
 
 .widget-tasks-assigned .rightboxes li a{
     background: #e28271;
@@ -657,6 +677,21 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
     font-size: 14px;
 }
 .widget-tasks-assigned .rightboxes li a:hover{
+    background: #292a2f;
+    color: #fff;
+}
+.widget-tasks-assigned .rightboxes1 li a{
+    background:#9bec6f;
+    padding: 10px;
+    display: block;
+    margin: 5px auto;
+    color: #fff;
+    width: 55%;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 14px;
+}
+.widget-tasks-assigned .rightboxes1 li a:hover{
     background: #292a2f;
     color: #fff;
 }

@@ -29,33 +29,27 @@
                                 <h5>Informações da Tarefa</h5>
                             </div>  
                             <div class="widget-body row-fluid">
-                                <form action="" method="post" enctype="multipart/form-data">
                                     <?php foreach ($view as $param): ?>
                                         <?php $id = $param['id']; ?>
                                         <div style="height: 115px; border-bottom: 1px solid;">
                                             <div class="span8">
                                                 <h4>#<?php echo $id; ?> - <?php echo $param['titulo']; ?> </h4>
-                                                <span><strong>Data de cadastro:</strong> <?php echo dataBR($param['data_cadastro']); ?> | <strong>Hora de cadastro:</strong> <?php echo horaBR($param['hora_cadastro']) . ":" . minBR($param['hora_cadastro']); ?> | <strong>Responsável:</strong> <?php echo $param['nome_usuario']; ?> <br/> <strong>Tipo de Tarefa:</strong> <?php echo $param['tipo']; ?> | <strong>Projeto:</strong> <?php echo $param['nome_projeto']; ?></span>
+                                                <span><strong>Data:</strong> <?php echo dataBR($param['data_cadastro']); ?> até <?php echo dataBR($param['data_final']) ?>
+                                                    | <strong>Hora:</strong> <?php echo horaBR($param['hora_cadastro']). ":" . minBR($param['hora_cadastro']); ?> até <?php echo horaBR($param['hora_final']). ":" . minBR($param['hora_final']); ?>
+                                                    | <strong>Responsável:</strong> <?php echo $param['nome_usuario']; ?> <br/> <strong>Tipo de Tarefa:</strong> <?php echo $param['tipo']; ?>
+                                                    | <strong>Projeto:</strong> <?php echo $param['nome_projeto']; ?>
+                                                </span>
                                             </div>
                                             <div class="span4" style="margin-left: 0">
+                                                <h4 style="text-align: center;">Tempo gasto na tarefa</h4>
                                                 <div class="timer" style="text-align: center; font-size: 25px; display: block; margin: 15px 0px;"></div>
-                                                <button style="background: #292a2f; border: none; color: #fff; padding: 10px; display: block; width: 100%;">Iniciar Contagem</button>
                                             </div>
                                         </div>
                                         <div class="span12" style="margin-left: 0">
                                             <h5 style="margin: 30px 0px -16px 0px">Descrição da Tarefa:</h5><br/>
-                                            <textarea name="descricao" class="span12"  rows="5" style="height:100px;"><?php echo $param['descricao']; ?></textarea>
-                                        </div>
-                                        <div class="span12" style="margin-left: 0;">
-                                            <div class="submit">
-                                                <input type="hidden" name="status" value="1"/>
-                                                <input type="hidden" name="hora_final" value="<?php echo date("H:i"); ?>"/>
-                                                <input type="hidden" name="data_final" value="<?php echo date("Y-m-d"); ?>"/>
-                                                <input type="submit" name="finalizar" value="Finalizar Tarefa" class="btn blue" style="background: #292a2f; border: none; color: #fff; padding: 10px; display: block; width: 100%; margin-top: 20px;"/> 
-                                            </div>
+                                            <textarea name="descricao" class="span12"  rows="5" style="height:100px;" readonly><?php echo $param['descricao']; ?></textarea>
                                         </div>
                                     <?php endforeach; ?>
-                                </form>
                             </div><!--/widget-body-->
                         </div> <!-- /widget -->
                     </div>
@@ -73,21 +67,6 @@
                                 </div>
                             <?php endforeach; ?>
 
-
-                            <div class="widget-body row-fluid">
-                                <div class="widget-forms clearfix">
-                                    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" onsubmit="return validaAddPaginas(this);">
-                                        <div class="control-group">
-                                            <label class="control-label">Comentário</label>
-                                            <div class="controls">
-                                                <textarea class="span12 ckeditor" rows="5" style="height:100px;" name="comentario"></textarea>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="tb_tarefas_id" value="<?php echo $id; ?>"/> 
-                                        <input type="submit" name="comentario-tarefa" class="btn btn-primary" value="Comentar"/>
-                                    </form>
-                                </div>
-                            </div><!--/widget-body-->
                         </div> <!-- /widget -->
                     </div>
                 </div><!--/main_container-->
