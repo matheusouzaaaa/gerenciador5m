@@ -40,7 +40,7 @@
                                                     | <strong>Projeto:</strong> <?php echo $param['nome_projeto']; ?>
                                                 </span>
                                             </div>
-                                            <div class="span4" style="margin-left: 0">
+                                            <div class="span4" style="margin-left: 0; background: #292a2f; color: #fff; border-radius: 12px; margin: 0 auto; display: block;">
                                                 <h4 style="text-align: center;">Tempo gasto na tarefa</h4>
                                                 <div class="timer" style="text-align: center; font-size: 25px; display: block; margin: 15px 0px;"></div>
                                             </div>

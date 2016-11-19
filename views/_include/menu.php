@@ -14,19 +14,25 @@
                 <div class="accordion-inner">
                     <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/tarefas/adicionar/"><i class="icon-star"></i> Adicionar Tarefa</a>
                     <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/tarefas/lista/"><i class="icon-list-alt"></i> Lista de Tarefas</a>
+                    <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/tarefas/tipo/"><i class="icon-plus"></i> Tipos de Tarefas</a>
                 </div>
             </div>
         </div>
-<!--        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle active b_F79999" href="javascript::;"><i class="icon-dashboard"></i> <span>Dashboard</span></a>
-            </div>
-        </div>-->
         <div class="accordion-group">
             <div class="accordion-heading">
                 <a class="accordion-toggle b_C1F8A9" href="<?php echo HOME_URI; ?>/tarefas/relatorios/"><i class="icon-bar-chart"></i> <span>Relatório</span></a>
             </div>
-        </div> 
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-user"></i> <span>Usuários</span></a>
+            </div>
+            <div id="collapse2" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/usuarios/adicionar/"><i class="icon-star"></i> Adicionar Usuário</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /Side menu -->

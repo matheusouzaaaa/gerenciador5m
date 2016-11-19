@@ -8,11 +8,10 @@ class Usuarios extends Conexao {
     public $permissao;
     public $nome;
     public $email;
-    public $user;
     public $password;
-    public $dica;
-    public $operador;
-    public $ativo;
+    public $cargo;
+    public $telefone;
+    public $tb_equipes_id;
 
     function getId() {
         return $this->id;
@@ -30,24 +29,20 @@ class Usuarios extends Conexao {
         return $this->email;
     }
 
-    function getUser() {
-        return $this->user;
-    }
-
     function getPassword() {
         return $this->password;
     }
 
-    function getDica() {
-        return $this->dica;
+    function getCargo() {
+        return $this->cargo;
     }
 
-    function getOperador() {
-        return $this->operador;
+    function getTelefone() {
+        return $this->telefone;
     }
 
-    function getAtivo() {
-        return $this->ativo;
+    function getTb_equipes_id() {
+        return $this->tb_equipes_id;
     }
 
     function setId($id) {
@@ -66,37 +61,33 @@ class Usuarios extends Conexao {
         $this->email = $email;
     }
 
-    function setUser($user) {
-        $this->user = $user;
-    }
-
     function setPassword($password) {
         $this->password = $password;
     }
 
-    function setDica($dica) {
-        $this->dica = $dica;
+    function setCargo($cargo) {
+        $this->cargo = $cargo;
     }
 
-    function setOperador($operador) {
-        $this->operador = $operador;
+    function setTelefone($telefone) {
+        $this->telefone = $telefone;
     }
 
-    function setAtivo($ativo) {
-        $this->ativo = $ativo;
+    function setTb_equipes_id($tb_equipes_id) {
+        $this->tb_equipes_id = $tb_equipes_id;
     }
 
     public function __construct() {
         $this->Conecta();
-        
+
         $this->session = $_SESSION['id'];
-        $this->tabela = "tb_users";
+        $this->tabela = "tb_usuarios";
+        $this->tabela_equipes = "tb_equipes";
 
         if (!isset($_SESSION['id'])) {
             header('Location:' . HOME_URI . '/login/index/');
             exit;
         }
-        
     }
 
     public function permissao() {
@@ -115,20 +106,20 @@ class Usuarios extends Conexao {
     }
 
     public function save() {
-        
+
         $this->permissao();
 
         $sql = $this->mysqli->prepare("INSERT INTO `$this->tabela`
-            (permissao, nome, email, user, password, dica, operador, ativo) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $sql->bind_param('ssssssii', $this->permissao, $this->nome, $this->email, $this->user, $this->password, $this->dica, $this->operador, $this->ativo);
+            (permissao, nome, email, password, cargo, telefone, tb_equipes_id) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $sql->bind_param('ssssssi', $this->permissao, $this->nome, $this->email, $this->password, $this->cargo, $this->telefone, $this->tb_equipes_id);
         $sql->execute();
     }
 
     public function update($param) {
 
-        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET permissao = ?, nome = ?, email = ?, user = ?, operador = ?, ativo = ? WHERE id = ?");
-        $sql->bind_param('ssssiii', $this->permissao, $this->nome, $this->email, $this->user, $this->operador, $this->ativo, $param);
+        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET permissao = ?, nome = ?, email = ?, cargo = ?, telefone = ?, tb_equipes_id = ? WHERE id = ?");
+        $sql->bind_param('sssssii', $this->permissao, $this->nome, $this->email, $this->cargo, $this->telefone, $this->tb_equipes_id, $param);
         $sql->execute();
     }
 
@@ -161,11 +152,10 @@ class Usuarios extends Conexao {
             $UsuariosModel['permissao'] = $this->permissao;
             $UsuariosModel['nome'] = $this->nome;
             $UsuariosModel['email'] = $this->email;
-            $UsuariosModel['user'] = $this->user;
             $UsuariosModel['password'] = $this->password;
-            $UsuariosModel['dica'] = $this->dica;
-            $UsuariosModel['operador'] = $this->operador;
-            $UsuariosModel['ativo'] = $this->ativo;
+            $UsuariosModel['cargo'] = $this->cargo;
+            $UsuariosModel['telefone'] = $this->telefone;
+            $UsuariosModel['tb_equipes_id'] = $this->tb_equipes_id;
 
             $lista[] = $UsuariosModel;
         }
@@ -178,7 +168,7 @@ class Usuarios extends Conexao {
 
         $sql = $this->mysqli->prepare("SELECT * FROM `$this->tabela` WHERE id='$param'");
         $sql->execute();
-        $sql->bind_result($this->id, $this->permissao, $this->nome, $this->email, $this->user, $this->password, $this->dica, $this->operador, $this->ativo);
+        $sql->bind_result($this->id, $this->permissao, $this->nome, $this->email, $this->password, $this->cargo, $this->telefone, $this->tb_equipes_id);
         $sql->fetch();
 
         $lista = array();
@@ -186,11 +176,27 @@ class Usuarios extends Conexao {
         $UsuariosModel['permissao'] = $this->permissao;
         $UsuariosModel['nome'] = $this->nome;
         $UsuariosModel['email'] = $this->email;
-        $UsuariosModel['user'] = $this->user;
         $UsuariosModel['password'] = $this->password;
-        $UsuariosModel['dica'] = $this->dica;
-        $UsuariosModel['operador'] = $this->operador;
-        $UsuariosModel['ativo'] = $this->ativo;
+        $UsuariosModel['cargo'] = $this->cargo;
+        $UsuariosModel['telefone'] = $this->telefone;
+        $UsuariosModel['tb_equipes_id'] = $this->tb_equipes_id;
+
+        $lista[] = $UsuariosModel;
+
+        return $lista;
+    }
+    public function listEquipes() {
+
+        $this->permissao();
+
+        $sql = $this->mysqli->prepare("SELECT * FROM `$this->tabela_equipes`");
+        $sql->execute();
+        $sql->bind_result($this->id, $this->nome);
+        $sql->fetch();
+
+        $lista = array();
+        $UsuariosModel['id'] = $this->id;
+        $UsuariosModel['nome'] = $this->nome;
 
         $lista[] = $UsuariosModel;
 

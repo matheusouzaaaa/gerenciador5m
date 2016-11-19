@@ -5,6 +5,7 @@ require_once MODELS . '/Conexao/Conexao.class.php';
 class Tarefas extends Conexao {
 
     public $id;
+    public $tipo;
     public $titulo;
     public $descricao;
     public $comentario;
@@ -23,6 +24,10 @@ class Tarefas extends Conexao {
 
     function getId() {
         return $this->id;
+    }
+
+    function getTipo() {
+        return $this->tipo;
     }
 
     function getTitulo() {
@@ -89,6 +94,10 @@ class Tarefas extends Conexao {
         $this->id = $id;
     }
 
+    function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+
     function setTitulo($titulo) {
         $this->titulo = $titulo;
     }
@@ -149,6 +158,7 @@ class Tarefas extends Conexao {
         $this->session = $session;
     }
 
+    
     public function __construct() {
         $this->Conecta();
 
@@ -188,6 +198,15 @@ class Tarefas extends Conexao {
         $sql->bind_param('ssssssiiiii', $this->titulo, $this->descricao, $this->data_cadastro, $this->data_final, $this->hora_cadastro, $this->hora_final, $this->status, $this->session, $this->tb_usuarios_id, $this->tb_tarefas_tipo_id, $this->tb_projetos_id);
         $sql->execute();
     }
+    
+    public function savetipo() {
+
+        $sql = $this->mysqli->prepare("INSERT INTO `$this->tabela_tipo_tarefas`
+            (tipo) 
+            VALUES (?)");
+        $sql->bind_param('s', $this->tipo);
+        $sql->execute();
+    }
 
     public function update($param) {
 
@@ -206,6 +225,8 @@ class Tarefas extends Conexao {
     }
 
     public function listAll() {
+        
+        $session = $_SESSION['id'];
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, b.nome, c.tipo, d.nome, e.nome "
                 . "FROM `$this->tabela` as a "
@@ -213,7 +234,7 @@ class Tarefas extends Conexao {
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
                 . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id "
                 . "INNER JOIN `$this->tabela_users` as e on a.usuario_cadastra = e.id "
-                . "WHERE a.status = '2' and a.tb_usuarios_id = " . $this->session);
+                . "WHERE a.status = '2' and a.tb_usuarios_id = '$session' order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto, $this->nome_criador);
 
@@ -242,7 +263,7 @@ class Tarefas extends Conexao {
                 . "FROM `$this->tabela` as a "
                 . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param");
+                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -270,7 +291,7 @@ class Tarefas extends Conexao {
                 . "FROM `$this->tabela` as a "
                 . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_usuarios_id = $param");
+                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_usuarios_id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -300,7 +321,7 @@ class Tarefas extends Conexao {
                 . "FROM `$this->tabela` as a "
                 . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id");
+                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -328,7 +349,7 @@ class Tarefas extends Conexao {
                 . "FROM `$this->tabela` as a "
                 . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param");
+                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -356,7 +377,7 @@ class Tarefas extends Conexao {
                 . "FROM `$this->tabela` as a "
                 . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
                 . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param");
+                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -384,7 +405,7 @@ class Tarefas extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT titulo, texto FROM `$this->tabela` WHERE id='$param'");
+        $sql = $this->mysqli->prepare("SELECT titulo, texto FROM `$this->tabela` WHERE id='$param' order by id desc");
         $sql->execute();
         $sql->bind_result($this->titulo, $this->texto);
         $sql->fetch();
@@ -400,7 +421,7 @@ class Tarefas extends Conexao {
 
     public function listUsuarios() {
 
-        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_users`");
+        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_users` order by nome");
         $sql->execute();
         $sql->bind_result($this->id, $this->nome);
 
@@ -417,7 +438,7 @@ class Tarefas extends Conexao {
 
     public function listTarefasTipo() {
 
-        $sql = $this->mysqli->prepare("SELECT id, tipo FROM `$this->tabela_tipo_tarefas`");
+        $sql = $this->mysqli->prepare("SELECT id, tipo FROM `$this->tabela_tipo_tarefas` order by tipo");
         $sql->execute();
         $sql->bind_result($this->id, $this->tipo);
 
@@ -468,7 +489,7 @@ class Tarefas extends Conexao {
 
     public function listComentarios($param) {
 
-        $sql = $this->mysqli->prepare("SELECT a.id, a.comentario, b.nome FROM `$this->tabela_comentarios` as a INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id WHERE a.tb_tarefas_id='$param'");
+        $sql = $this->mysqli->prepare("SELECT a.id, a.comentario, b.nome FROM `$this->tabela_comentarios` as a INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id WHERE a.tb_tarefas_id='$param' order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->comentario, $this->nome_comentario);
 

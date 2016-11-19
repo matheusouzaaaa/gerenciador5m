@@ -33,7 +33,7 @@
                             </div>
                             <div class="widget-body">
                                 <?php foreach ($view as $param): ?>
-                                    <div class="circle" style="height:200px; width:200px; background-color:white; border-radius:100px; border: none">
+                                    <div class="circle" style="height:150px; width:150px; background-color:white; border-radius:100px; border: none">
                                         <a href="<?php echo HOME_URI . "/tarefas/entregues/" . $param['id']; ?>">
                                             <img src="<?php echo IMAGES; ?>/logo5m.png"/>
                                             <?php echo $param['nome']; ?>

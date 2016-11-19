@@ -9,7 +9,7 @@ class TarefasController extends Tarefas {
     }
 
     public function index() {
-        
+
         $this->view = $this->model->listAll();
         $this->load = load_view($controller = 'tarefas', $action = 'index', $mensagem = null, $this->view);
     }
@@ -19,6 +19,7 @@ class TarefasController extends Tarefas {
         $this->view = $this->model->listAll();
         $this->load = load_view($controller = 'tarefas', $action = 'lista', $mensagem = null, $this->view);
     }
+
     public function finalizada($param) {
 
         $this->view = $this->model->listTarefaFinalizada($param);
@@ -33,24 +34,21 @@ class TarefasController extends Tarefas {
             $this->model->setHora_final($_POST['hora_final']);
             $this->model->setStatus($_POST['status']);
             $this->model->finalizar($param, $this->model);
-            
+
             $this->view = $this->model->listTarefa($param);
             $this->view2 = $this->model->listComentarios($param);
             $this->load = load_view($controller = 'tarefas', $action = 'tarefa', $mensagem = null, $this->view, $this->view2);
-            
-        } 
+        }
         if (isset($_POST['comentario-tarefa'])) {
             $this->model->setComentario($_POST['comentario']);
             $this->model->setSession($_SESSION['id']);
             $this->model->setTb_tarefas_id($_POST['tb_tarefas_id']);
             $this->model->comentarTarefa($param, $this->model);
-            
+
             $this->view = $this->model->listTarefa($param);
             $this->view2 = $this->model->listComentarios($param);
             $this->load = load_view($controller = 'tarefas', $action = 'tarefa', $mensagem = null, $this->view, $this->view2);
-            
-        } 
-        else {
+        } else {
             $this->view = $this->model->listTarefa($param);
             $this->view2 = $this->model->listComentarios($param);
             $this->load = load_view($controller = 'tarefas', $action = 'tarefa', $mensagem = null, $this->view, $this->view2);
@@ -125,6 +123,20 @@ class TarefasController extends Tarefas {
 
         $this->model->remove($param);
         header('Location:' . HOME_URI . '/tarefas/lista');
+    }
+
+    public function tipo() {
+        if ($_POST['submit-tipo']) {
+
+            $this->model->setTipo($_POST['tipo']);
+            $this->model->savetipo($this->model);
+
+            $mensagem = 'Tipo de tarefa cadastrada com sucesso!';
+
+            $this->load = load_view($controller = 'tarefas', $action = 'tipo', $mensagem, $this->view = null);
+        } else {
+            $this->load = load_view($controller = 'tarefas', $action = 'tipo', $mensagem = null, $this->view = null);
+        }
     }
 
 }

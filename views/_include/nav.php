@@ -3,8 +3,10 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <div class="logo"> 
-                <img src="<?php echo IMAGES; ?>/logo-gerenciador.png" alt="Logo">
+            <div class="logo">
+                <a href="<?php echo HOME_URI; ?>">
+                    <img src="<?php echo IMAGES; ?>/logo-gerenciador.png" alt="Logo">
+                </a>
             </div>
             <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>

@@ -22,19 +22,19 @@ class UsuariosController extends Usuarios {
 
             $this->model->setPermissao($_POST['permissao']);
             $this->model->setNome($_POST['nome']);
-            $this->model->setUser($_POST['user']);
             $this->model->setEmail($_POST['email']);
             $this->model->setPassword(md5_hash($_POST['password']));
-            $this->model->setDica($_POST['dica']);
-            $this->model->setOperador($_POST['operador']);
-            $this->model->setAtivo($_POST['ativo']);
+            $this->model->setCargo($_POST['cargo']);
+            $this->model->setTelefone($_POST['telefone']);
+            $this->model->setTb_equipes_id($_POST['tb_equipes_id']);
             $this->model->save($this->model);
 
             $mensagem = 'Usuário cadastrado com sucesso!';
-
-            $this->load = load_view($controller = 'usuarios', $action = 'adicionar', $mensagem, $this->view = null);
+            $this->view = $this->model->listEquipes();
+            $this->load = load_view($controller = 'usuarios', $action = 'adicionar', $mensagem, $this->view);
         } else {
-            $this->load = load_view($controller = 'usuarios', $action = 'adicionar', $mensagem = null, $this->view = null);
+            $this->view = $this->model->listEquipes();
+            $this->load = load_view($controller = 'usuarios', $action = 'adicionar', $mensagem = null, $this->view);
         }
     }
 
@@ -45,9 +45,10 @@ class UsuariosController extends Usuarios {
             $this->model->setPermissao($_POST['permissao']);
             $this->model->setNome($_POST['nome']);
             $this->model->setEmail($_POST['email']);
-            $this->model->setUser($_POST['user']);
-            $this->model->setOperador($_POST['operador']);
-            $this->model->setAtivo($_POST['ativo']);
+            $this->model->setPassword(md5_hash($_POST['password']));
+            $this->model->setCargo($_POST['cargo']);
+            $this->model->setTelefone($_POST['telefone']);
+            $this->model->setTb_equipes_id($_POST['tb_equipes_id']);
             $this->model->update($param, $this->model);
 
             header('Location:' . HOME_URI . '/usuarios/editar/' . $param);
