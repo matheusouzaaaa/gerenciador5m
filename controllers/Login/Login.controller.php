@@ -12,7 +12,7 @@ class LoginController extends Login {
 
         if ($_POST['submit']) {
 
-            $this->model->setEmail($_POST['email']);
+            $this->model->setLogin($_POST['login']);
             $this->model->setPassword(secure(md5_hash($_POST['password'])));
             $this->model->autenticar($this->model);
             

@@ -23,6 +23,7 @@ class UsuariosController extends Usuarios {
             $this->model->setPermissao($_POST['permissao']);
             $this->model->setNome($_POST['nome']);
             $this->model->setEmail($_POST['email']);
+            $this->model->setLogin($_POST['login']);
             $this->model->setPassword(md5_hash($_POST['password']));
             $this->model->setCargo($_POST['cargo']);
             $this->model->setTelefone($_POST['telefone']);
@@ -40,27 +41,16 @@ class UsuariosController extends Usuarios {
 
     public function editar($param) {
 
-        if ($_POST['submit']) {
+        if (isset($_POST['submit'])) {
 
-            $this->model->setPermissao($_POST['permissao']);
             $this->model->setNome($_POST['nome']);
             $this->model->setEmail($_POST['email']);
-            $this->model->setPassword(md5_hash($_POST['password']));
             $this->model->setCargo($_POST['cargo']);
             $this->model->setTelefone($_POST['telefone']);
-            $this->model->setTb_equipes_id($_POST['tb_equipes_id']);
             $this->model->update($param, $this->model);
 
             header('Location:' . HOME_URI . '/usuarios/editar/' . $param);
-        }
-
-        if ($_POST['submit-password']) {
-
-            $this->model->setPassword(md5_hash($_POST['password']));
-            $this->model->updatepassword($param, $this->model);
-
-            header('Location:' . HOME_URI . '/usuarios/editar/' . $param);
-        } else {
+        }else {
 
             $this->view = $this->model->listID($param);
             $this->load = load_view($controller = 'usuarios', $action = 'editar', $mensagem = null, $this->view);

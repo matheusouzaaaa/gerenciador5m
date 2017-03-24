@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Adicionar Cliente | Gerenciador de Tarefas</title>
+    <title>Adicionar Projeto | Gerenciador de Tarefas</title>
     <?php require_once 'views/_include/head.php'; ?>
     <?php require_once MODELS . '/Login/Login.class.php'; ?>
 </head>
@@ -19,13 +19,13 @@
                 <div class="row-fluid">
                     <ul class="breadcrumb">
                         <li><a href="<?php echo HOME_URI; ?>/tarefas/index">Página Inicial</a> <span class="divider">/</span></li>
-                        <li class="active"><p>Adicionar Cliente</p></li>
+                        <li class="active"><p>Adicionar Projeto</p></li>
                     </ul>
                 </div>
                 <div class="row-fluid">
                     <div class="widget widget-padding span12">
                         <div class="widget-header">
-                            <i class="icon-plus"></i><h5>Adicionar Cliente</h5>
+                            <i class="icon-plus"></i><h5>Adicionar Projeto</h5>
                             <div class="widget-buttons">
                                 <a href="#" data-title="Collapse" data-collapsed="false" class="tip collapse"><i class="icon-chevron-up"></i></a>
                             </div>
@@ -42,14 +42,26 @@
                                     <?php endif; ?>
 
                                     <div class="control-group">
+                                        <label class="control-label">Projeto</label>
+                                        <div class="controls">
+                                            <input class="span12" type="text" placeholder="Escreva o nome do cliente" name="nome"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
                                         <label class="control-label">Cliente</label>
                                         <div class="controls">
-                                        <input class="span12" type="text" placeholder="Escreva o nome do cliente" name="nome"/>
+                                            <select name="tb_clientes_id" tabindex="1" data-placeholder="Selecione..." class="span12">
+                                                <option value="">Selecione...</option>
+                                                <?php foreach ($view as $param): ?>
+                                                    <option value="<?php echo $param['id']; ?>"><?php echo $param['nome']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                     </div>
 
 
-                                    <input type="submit" name="submit" class="btn btn-primary" value="Adicionar Cliente"/>
+                                    <input type="submit" name="submit" class="btn btn-primary" value="Adicionar Projeto"/>
                                 </form>
                             </div>
                         </div>

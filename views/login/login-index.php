@@ -27,8 +27,8 @@
                                     <form action="" method="post" onsubmit="return validaLogin(this);">
                                         <div class="control-group">
                                             <div class="controls">
-                                                <label>E-mail</label>
-                                                <input class="btn-block" type="text" placeholder="Insira seu e-mail" name="email"/>
+                                                <label>Login</label>
+                                                <input class="btn-block" type="text" placeholder="Insira seu login" name="login"/>
                                             </div>
                                         </div>
                                         <div class="control-group">

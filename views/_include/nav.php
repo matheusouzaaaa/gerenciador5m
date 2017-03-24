@@ -25,6 +25,14 @@
                 </ul>
             </div>
 
+            <div class="top-menu visible-desktop">
+                <ul class="pull-right">  
+                    <li><a href="<?php echo HOME_URI; ?>/tarefas/adicionar/"><i class="icon-plus"></i> Nova Tarefa</a></li>
+                </ul>
+            </div>
+
+            
+
             <div class="top-menu visible-phone visible-tablet">
                 <ul class="pull-right">  
                     <li><a href="<?php echo HOME_URI; ?>?acao=sair"><i class="icon-off"></i></a></li>

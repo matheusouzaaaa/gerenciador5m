@@ -14,6 +14,11 @@ class TarefasController extends Tarefas {
         $this->load = load_view($controller = 'tarefas', $action = 'index', $mensagem = null, $this->view);
     }
 
+    public function vazias() {
+
+        $this->load = load_view($controller = 'tarefas', $action = 'index', $mensagem = null, $this->view = null);
+    }
+
     public function lista() {
 
         $this->view = $this->model->listAll();

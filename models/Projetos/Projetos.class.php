@@ -2,11 +2,22 @@
 
 require_once MODELS . '/Conexao/Conexao.class.php';
 
-class Clientes extends Conexao {
+class Projetos extends Conexao {
 
     public $id;
     public $nome;
+    public $tb_clientes_id;
     public $excluir;
+
+    function getTb_clientes_id()
+    {
+        return $this->tb_clientes_id;
+    }
+    
+    function setTb_clientes_id($tb_clientes_id)
+    {
+        return $this->tb_clientes_id = $tb_clientes_id;
+    }
 
     function getId() {
         return $this->id;
@@ -37,7 +48,8 @@ class Clientes extends Conexao {
         $this->Conecta();
         
         $this->session = $_SESSION['id'];
-        $this->tabela = "tb_clientes";
+        $this->tabela = "tb_projetos";
+        $this->tabela_clientes = "tb_clientes";
         $this->tabela_users = "tb_usuarios";
         
     }
@@ -62,18 +74,18 @@ class Clientes extends Conexao {
         $this->permissao();
 
         $sql = $this->mysqli->prepare("INSERT INTO `$this->tabela`
-            (nome) 
-            VALUES (?)");
-        $sql->bind_param('s', $this->nome);
+            (nome, tb_clientes_id) 
+            VALUES (?, ?)");
+        $sql->bind_param('si', $this->nome, $this->tb_clientes_id);
         $sql->execute();
     }
 
     public function update($param) {
 
         $sql = $this->mysqli->prepare(
-            "UPDATE `$this->tabela` SET nome = ? WHERE id = ?"
+            "UPDATE `$this->tabela` SET nome = ?, tb_clientes_id = ? WHERE id = ?"
             );
-        $sql->bind_param('si', $this->nome, $param);
+        $sql->bind_param('sii', $this->nome, $this->tb_clientes_id, $param);
         $sql->execute();
     }
 
@@ -86,49 +98,22 @@ class Clientes extends Conexao {
         $sql->execute();
     }
 
-    public function removeall() {
-
-        $this->permissao();
-
-        foreach ($this->excluir AS $param) {
-            $sql = $this->mysqli->prepare("DELETE FROM `$this->tabela` WHERE id = ?");
-            $sql->bind_param('i', $param);
-            $sql->execute();
-        }
-    }
-
     public function listAll() {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela`");
+        $sql = $this->mysqli->prepare("SELECT a.id, a.nome, b.nome FROM `$this->tabela` as a INNER JOIN `$this->tabela_clientes` as b ON a.tb_clientes_id = b.id ");
         $sql->execute();
-        $sql->bind_result($this->id, $this->nome);
+        $sql->bind_result($this->id, $this->nome, $this->nome_cliente);
 
         $lista = array();
         while ($row = $sql->fetch()) {
 
-            $ClientesModel['id'] = $this->id;
-            $ClientesModel['nome'] = $this->nome;
+            $ProjetosModel['id'] = $this->id;
+            $ProjetosModel['nome'] = $this->nome;
+            $ProjetosModel['nome_cliente'] = $this->nome_cliente;
 
-            $lista[] = $ClientesModel;
-        }
-        return $lista;
-    }
-
-    public function listNome() {
-
-        $sql = $this->mysqli->prepare("SELECT id, nome= FROM `$this->tabela` WHERE nome='$this->nome'");
-        $sql->execute();
-        $sql->bind_result($this->id, $this->nome);
-
-        $lista = array();
-        while ($row = $sql->fetch()) {
-
-            $ClientesModel['id'] = $this->id;
-            $ClientesModel['nome'] = $this->nome;
-
-            $lista[] = $ClientesModel;
+            $lista[] = $ProjetosModel;
         }
         return $lista;
     }
@@ -137,18 +122,39 @@ class Clientes extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT * FROM `$this->tabela` WHERE id='$param'");
+        $sql = $this->mysqli->prepare("SELECT a.id, a.nome, b.id, b.nome FROM `$this->tabela` as a INNER JOIN `$this->tabela_clientes` as b ON a.tb_clientes_id = b.id WHERE a.id='$param'");
         $sql->execute();
-        $sql->bind_result($this->id, $this->nome);
+        $sql->bind_result($this->id, $this->nome, $this->id_cliente, $this->nome_cliente);
         $sql->fetch();
 
         $lista = array();
-        $ClientesModel['id'] = $this->id;
-        $ClientesModel['nome'] = $this->nome;
+        $ProjetosModel['id'] = $this->id;
+        $ProjetosModel['nome'] = $this->nome;
+        $ProjetosModel['id_cliente'] = $this->id_cliente;
+        $ProjetosModel['nome_cliente'] = $this->nome_cliente;
 
-        $lista[] = $ClientesModel;
+        $lista[] = $ProjetosModel;
 
         return $lista;
     }
 
+
+    public function listClientes() {
+
+        $this->permissao();
+
+        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_clientes`");
+        $sql->execute();
+        $sql->bind_result($this->id, $this->nome);
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $ProjetosModel['id'] = $this->id;
+            $ProjetosModel['nome'] = $this->nome;
+
+            $lista[] = $ProjetosModel;
+        }
+        return $lista;
+    }
 }

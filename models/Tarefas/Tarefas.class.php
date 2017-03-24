@@ -225,45 +225,54 @@ class Tarefas extends Conexao {
     }
 
     public function listAll() {
-        
+
         $session = $_SESSION['id'];
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, b.nome, c.tipo, d.nome, e.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id "
-                . "INNER JOIN `$this->tabela_users` as e on a.usuario_cadastra = e.id "
-                . "WHERE a.status = '2' and a.tb_usuarios_id = '$session' order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id "
+            . "INNER JOIN `$this->tabela_users` as e on a.usuario_cadastra = e.id "
+            . "WHERE a.status = '2' and a.tb_usuarios_id = '$session' order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto, $this->nome_criador);
+        $sql->store_result();
+        $rows = $sql->num_rows;
+        // $sql->fetch();
 
-        $lista = array();
-        while ($row = $sql->fetch()) {
-
-            $PaginasModel['id'] = $this->id;
-            $PaginasModel['titulo'] = $this->titulo;
-            $PaginasModel['descricao'] = $this->descricao;
-            $PaginasModel['data_cadastro'] = $this->data_cadastro;
-            $PaginasModel['hora_cadastro'] = $this->hora_cadastro;
-            $PaginasModel['nome_usuario'] = $this->nome_usuario;
-            $PaginasModel['tipo'] = $this->tipo;
-            $PaginasModel['nome_projeto'] = $this->nome_projeto;
-            $PaginasModel['nome_criador'] = $this->nome_criador;
-
-            $lista[] = $PaginasModel;
+        if ($rows === 0) {
+            $this->load = load_view($controller = 'tarefas', $action = 'vazias', $mensagem, $this->view = null);
         }
+        if ($rows >= 1) {
+            $lista = array();
+            while ($row = $sql->fetch()) {
 
-        return $lista;
+                $PaginasModel['id'] = $this->id;
+                $PaginasModel['titulo'] = $this->titulo;
+                $PaginasModel['descricao'] = $this->descricao;
+                $PaginasModel['data_cadastro'] = $this->data_cadastro;
+                $PaginasModel['hora_cadastro'] = $this->hora_cadastro;
+                $PaginasModel['nome_usuario'] = $this->nome_usuario;
+                $PaginasModel['tipo'] = $this->tipo;
+                $PaginasModel['nome_projeto'] = $this->nome_projeto;
+                $PaginasModel['nome_criador'] = $this->nome_criador;
+
+                $lista[] = $PaginasModel;
+            }
+
+            return $lista;
+            
+        }
     }
 
     public function FiltroRelatoriosAberto($param) {
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, b.nome, c.tipo, d.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -288,10 +297,10 @@ class Tarefas extends Conexao {
     public function FiltroRelatoriosFechado($param) {
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, a.data_final, a.hora_final, b.nome, c.tipo, d.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_usuarios_id = $param order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_usuarios_id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -318,10 +327,10 @@ class Tarefas extends Conexao {
     public function listRelatorios() {
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, b.nome, c.tipo, d.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -346,10 +355,10 @@ class Tarefas extends Conexao {
     public function listTarefa($param) {
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, b.nome, c.tipo, d.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -374,10 +383,10 @@ class Tarefas extends Conexao {
     public function listTarefaFinalizada($param) {
 
         $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao,  a.data_cadastro, a.hora_cadastro, a.data_final, a.hora_final, b.nome, c.tipo, d.nome "
-                . "FROM `$this->tabela` as a "
-                . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
-                . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-                . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -484,7 +493,7 @@ class Tarefas extends Conexao {
         $sql->bind_param('sii', $this->comentario, $this->session, $this->tb_tarefas_id);
         $sql->execute();
         
-         header('Location:' . HOME_URI . '/tarefas/tarefa/' . $param);
+        header('Location:' . HOME_URI . '/tarefas/tarefa/' . $param);
     }
 
     public function listComentarios($param) {
@@ -495,7 +504,7 @@ class Tarefas extends Conexao {
 
         $lista = array();
         while ($row = $sql->fetch()) {
-            
+
             $PaginasModel['id'] = $this->id;
             $PaginasModel['comentario'] = $this->comentario;
             $PaginasModel['nome_comentario'] = $this->nome_comentario;

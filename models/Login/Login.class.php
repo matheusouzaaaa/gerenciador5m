@@ -7,6 +7,18 @@ class Login extends Conexao {
     public $id;
     public $email;
     public $password;
+    public $login;
+
+
+    function getLogin()
+    {
+        return $this->login;
+    }
+    
+    function setLogin($login)
+    {
+        return $this->login = $login;
+    }
 
     function getId() {
         return $this->id;
@@ -40,7 +52,7 @@ class Login extends Conexao {
 
     public function autenticar() {
 
-        $sql = $this->mysqli->prepare("SELECT id FROM `$this->tabela` WHERE email='$this->email' AND password='$this->password'");
+        $sql = $this->mysqli->prepare("SELECT id FROM `$this->tabela` WHERE login='$this->login' AND password='$this->password'");
         $sql->execute();
         $sql->bind_result($this->id);
         $sql->store_result();
@@ -65,6 +77,16 @@ class Login extends Conexao {
         $sql->fetch();
 
         echo ucwords($this->nome);
+    }
+
+    public function identificaid() {
+
+        $sql = $this->mysqli->prepare("SELECT id FROM `$this->tabela` WHERE id='$this->session'");
+        $sql->execute();
+        $sql->bind_result($this->id);
+        $sql->fetch();
+
+        echo ($this->id);
     }
 
 }

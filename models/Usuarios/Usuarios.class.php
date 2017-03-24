@@ -12,6 +12,17 @@ class Usuarios extends Conexao {
     public $cargo;
     public $telefone;
     public $tb_equipes_id;
+    public $login;
+
+    function getLogin()
+    {
+        return $this->login;
+    }
+    
+    function setLogin($login)
+    {
+        return $this->login = $login;
+    }
 
     function getId() {
         return $this->id;
@@ -118,8 +129,8 @@ class Usuarios extends Conexao {
 
     public function update($param) {
 
-        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET permissao = ?, nome = ?, email = ?, cargo = ?, telefone = ?, tb_equipes_id = ? WHERE id = ?");
-        $sql->bind_param('sssssii', $this->permissao, $this->nome, $this->email, $this->cargo, $this->telefone, $this->tb_equipes_id, $param);
+        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET nome = ?, email = ?, cargo = ?, telefone = ? WHERE id = ?");
+        $sql->bind_param('ssssi', $this->nome, $this->email, $this->cargo, $this->telefone, $param);
         $sql->execute();
     }
 
@@ -168,13 +179,14 @@ class Usuarios extends Conexao {
 
         $sql = $this->mysqli->prepare("SELECT * FROM `$this->tabela` WHERE id='$param'");
         $sql->execute();
-        $sql->bind_result($this->id, $this->permissao, $this->nome, $this->email, $this->password, $this->cargo, $this->telefone, $this->tb_equipes_id);
+        $sql->bind_result($this->id, $this->permissao, $this->nome, $this->login, $this->email, $this->password, $this->cargo, $this->telefone, $this->tb_equipes_id);
         $sql->fetch();
 
         $lista = array();
         $UsuariosModel['id'] = $this->id;
         $UsuariosModel['permissao'] = $this->permissao;
         $UsuariosModel['nome'] = $this->nome;
+        $UsuariosModel['login'] = $this->login;
         $UsuariosModel['email'] = $this->email;
         $UsuariosModel['password'] = $this->password;
         $UsuariosModel['cargo'] = $this->cargo;
