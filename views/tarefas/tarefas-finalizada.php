@@ -27,6 +27,9 @@
                         <div class="widget-header">
                             <i class="icon-info-sign"></i>
                             <h5>Informações da Tarefa</h5>
+                            <div class="widget-buttons">
+                                <a href="javascript: history.go(-1)"><i class="icon-reply"></i> Voltar</a>
+                            </div>
                         </div>  
                         <div class="widget-body row-fluid">
                             <?php foreach ($view as $param): ?>

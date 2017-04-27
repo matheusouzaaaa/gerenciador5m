@@ -210,8 +210,8 @@ class Tarefas extends Conexao {
 
     public function update($param) {
 
-        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET titulo = ?, texto = ? WHERE id = ?");
-        $sql->bind_param('ssi', $this->titulo, $this->texto, $param);
+        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET titulo = ?, descricao = ?, tb_usuarios_id = ? WHERE id = ?");
+        $sql->bind_param('ssii', $this->titulo, $this->descricao, $this->tb_usuarios_id, $param);
         $sql->execute();
     }
 
@@ -301,6 +301,66 @@ class Tarefas extends Conexao {
             . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
             . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_usuarios_id = $param order by a.id desc");
+        $sql->execute();
+        $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $PaginasModel['id'] = $this->id;
+            $PaginasModel['titulo'] = $this->titulo;
+            $PaginasModel['descricao'] = $this->descricao;
+            $PaginasModel['data_cadastro'] = $this->data_cadastro;
+            $PaginasModel['hora_cadastro'] = $this->hora_cadastro;
+            $PaginasModel['data_final'] = $this->data_final;
+            $PaginasModel['hora_final'] = $this->hora_final;
+            $PaginasModel['nome_usuario'] = $this->nome_usuario;
+            $PaginasModel['tipo'] = $this->tipo;
+            $PaginasModel['nome_projeto'] = $this->nome_projeto;
+
+            $lista[] = $PaginasModel;
+        }
+
+        return $lista;
+    }
+
+    public function listTarefasFiltradasAbertas() {
+
+        $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, a.data_final, a.hora_final, b.nome, c.tipo, d.nome "
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_tarefas_tipo_id = $this->tb_tarefas_tipo_id order by a.id desc");
+        $sql->execute();
+        $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $PaginasModel['id'] = $this->id;
+            $PaginasModel['titulo'] = $this->titulo;
+            $PaginasModel['descricao'] = $this->descricao;
+            $PaginasModel['data_cadastro'] = $this->data_cadastro;
+            $PaginasModel['hora_cadastro'] = $this->hora_cadastro;
+            $PaginasModel['data_final'] = $this->data_final;
+            $PaginasModel['hora_final'] = $this->hora_final;
+            $PaginasModel['nome_usuario'] = $this->nome_usuario;
+            $PaginasModel['tipo'] = $this->tipo;
+            $PaginasModel['nome_projeto'] = $this->nome_projeto;
+
+            $lista[] = $PaginasModel;
+        }
+
+        return $lista;
+    }
+
+    public function listTarefasFiltradasFechadas() {
+
+        $sql = $this->mysqli->prepare("SELECT a.id, a.titulo, a.descricao, a.data_cadastro, a.hora_cadastro, a.data_final, a.hora_final, b.nome, c.tipo, d.nome "
+            . "FROM `$this->tabela` as a "
+            . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
+            . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '1' and a.tb_tarefas_tipo_id = $this->tb_tarefas_tipo_id order by a.id desc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -414,14 +474,16 @@ class Tarefas extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT titulo, texto FROM `$this->tabela` WHERE id='$param' order by id desc");
+        $sql = $this->mysqli->prepare("SELECT a.titulo, a.descricao, a.tb_usuarios_id, b.nome FROM `$this->tabela` as a inner join `$this->tabela_users` as b on a.tb_usuarios_id = b.id WHERE a.id='$param' order by a.id desc");
         $sql->execute();
-        $sql->bind_result($this->titulo, $this->texto);
+        $sql->bind_result($this->titulo, $this->descricao, $this->tb_usuarios_id, $this->nome_usuario);
         $sql->fetch();
 
         $lista = array();
         $PaginasModel['titulo'] = $this->titulo;
-        $PaginasModel['texto'] = $this->texto;
+        $PaginasModel['descricao'] = $this->descricao;
+        $PaginasModel['tb_usuarios_id'] = $this->tb_usuarios_id;
+        $PaginasModel['nome_usuario'] = $this->nome_usuario;
 
         $lista[] = $PaginasModel;
 
@@ -515,6 +577,28 @@ class Tarefas extends Conexao {
         
         return $lista;
         
+    }
+
+    public function listNome() {
+
+        $sql = $this->mysqli->prepare("
+            SELECT a.id, a.titulo, a.descricao, b.nome FROM `$this->tabela` AS a INNER JOIN `$this->tabela_users` AS b ON b.id = a.tb_usuarios_id
+            WHERE a.nome='$this->nome' ORDER BY a.id ASC 
+            ");
+        $sql->execute();
+        $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->nome_usuario);
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $GeralModel['id'] = $this->id;
+            $GeralModel['titulo'] = $this->titulo;
+            $GeralModel['descricao'] = $this->descricao;
+            $GeralModel['nome_usuario'] = $this->nome_usuario;
+
+            $lista[] = $GeralModel;
+        }
+        return $lista;
     }
 
 }

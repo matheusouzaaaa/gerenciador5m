@@ -27,6 +27,9 @@
                         <div class="widget-header">
                             <i class="icon-info-sign"></i>
                             <h5>Informações da Tarefa</h5>
+                            <div class="widget-buttons">
+                                <a href="javascript: history.go(-1)"><i class="icon-reply"></i> Voltar</a>
+                            </div>
                         </div>  
                         <div class="widget-body row-fluid">
                             <form action="" method="post" enctype="multipart/form-data">
@@ -35,7 +38,7 @@
                                     <div class="info-tarefa">
                                         <div class="span8">
                                             <h4>
-                                                #<?php echo $id; ?> - <?php echo $param['titulo']; ?> 
+                                                #<?php echo $id; ?> - <?php echo $param['titulo']; ?> - <a href="<?php echo HOME_URI; ?>/tarefas/editar/<?php echo $id ?>">Editar tarefa</a>
                                             </h4>
                                             <span>
                                                 <strong>Data de cadastro:</strong> 
@@ -63,7 +66,7 @@
                                             Descrição da Tarefa:
                                         </h5>
                                         <br/>
-                                        <textarea name="descricao" class="span12"  rows="5" style="height:100px;"><?php echo $param['descricao']; ?></textarea>
+                                        <textarea name="descricao" class="span12" disabled="" rows="5" style="height:100px;"><?php echo $param['descricao']; ?></textarea>
                                     </div>
                                     <div class="span12 margin-0">
                                         <div class="submit">

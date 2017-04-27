@@ -46,6 +46,7 @@
                     <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/tarefas/tipo/"><i class="icon-plus"></i> Tipos de Tarefas</a>
                     <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/usuarios/adicionar/"><i class="icon-star"></i> Adicionar Usuário</a>
                     <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/usuarios/lista/"><i class="icon-list-alt"></i> Lista de Usuários</a>
+                    <a class="accordion-toggle" href="<?php echo HOME_URI; ?>/tarefas/graficos/"><i class="icon-signal"></i> Gráficos</a>
                 </div>
             </div>
         </div>

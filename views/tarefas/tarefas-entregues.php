@@ -28,6 +28,36 @@
                     <div class="widget span12">
                         <div class="widget-header">
                             <i class="icon-tasks"></i>
+                            <h5>Filtros</h5>
+                        </div>
+                        <div class="widget-body clearfix">
+                            <div class="widget-tasks-assigned">
+                                <div class="span3">
+                                    <form action="" method="post" class="form-inline" role="form" onsubmit="return validaGeralCategoria(this);">
+                                        <div class="form-group" style="width: 100%; padding: 10px 15px;">
+                                            <label style="font-size: 16px; font-weight: bold; color: #62687E; display: block; width: 100%">Tipo de Tarefa</label>
+                                            <div class="input-icon" style="width: 100%">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <select name="tb_tarefas_tipo_id" class="form-control agenda" style="width: 100%; margin: 10px 0px;">
+                                                    <option value="" selected=""> Selecione...</option>
+                                                    <?php foreach ($view3 as $param): ?>
+                                                        <option value="<?php echo $param['id']; ?>"><?php echo $param['tipo']; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <input type="submit" name="submit-tipo-tarefa" value="Filtrar" class="btn btn-default margin-filtro" style="width: 100%; background: #292a2f; color: #fff; border: none;" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="widget span12">
+                        <div class="widget-header">
+                            <i class="icon-tasks"></i>
                             <h5>Tarefas em Andamento</h5>
                         </div>
                         <div class="widget-body clearfix">

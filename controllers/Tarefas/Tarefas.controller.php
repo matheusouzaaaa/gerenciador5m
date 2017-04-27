@@ -19,6 +19,11 @@ class TarefasController extends Tarefas {
         $this->load = load_view($controller = 'tarefas', $action = 'index', $mensagem = null, $this->view = null);
     }
 
+    public function graficos() {
+
+        $this->load = load_view($controller = 'tarefas', $action = 'graficos', $mensagem = null, $this->view = null);
+    }
+
     public function lista() {
 
         $this->view = $this->model->listAll();
@@ -67,9 +72,23 @@ class TarefasController extends Tarefas {
     }
 
     public function entregues($param) {
-        $this->view = $this->model->FiltroRelatoriosAberto($param);
-        $this->view2 = $this->model->FiltroRelatoriosFechado($param);
-        $this->load = load_view($controller = 'tarefas', $action = 'entregues', $mensagem = null, $this->view, $this->view2);
+
+        if ($_POST['submit-tipo-tarefa']) {
+
+            $this->model->setTb_tarefas_tipo_id($_POST['tb_tarefas_tipo_id']);
+            $this->view = $this->model->listTarefasFiltradasAbertas();
+            $this->view2 = $this->model->listTarefasFiltradasFechadas();
+            $this->view3 = $this->model->listTarefasTipo();
+            $this->load = load_view($controller = 'tarefas', $action = 'entregues', $mensagem = null,$this->view, $this->view2, $this->view3);
+        } else {
+
+            $this->view = $this->model->FiltroRelatoriosAberto($param);
+            $this->view2 = $this->model->FiltroRelatoriosFechado($param);
+            $this->view3 = $this->model->listTarefasTipo();
+            $this->load = load_view($controller = 'tarefas', $action = 'entregues', $mensagem = null, $this->view, $this->view2, $this->view3);
+        }
+
+        
     }
 
     public function adicionar() {
@@ -108,10 +127,11 @@ class TarefasController extends Tarefas {
 
     public function editar($param) {
 
-        if ($_POST['submit']) {
+        if ($_POST['acao-editar-tarefa']) {
 
             $this->model->setTitulo($_POST['titulo']);
-            $this->model->setTexto($_POST['texto']);
+            $this->model->setDescricao($_POST['descricao']);
+            $this->model->setTb_usuarios_id($_POST['tb_usuarios_id']);
             $this->model->update($param, $this->model);
             $this->mensagem = 'Tarefa atualizada com sucesso!';
 
@@ -119,8 +139,9 @@ class TarefasController extends Tarefas {
         } else {
 
             $this->view = $this->model->listID($param);
+            $this->view2 = $this->model->listUsuarios();
 
-            $this->load = load_view($controller = 'tarefas', $action = 'editar', $mensagem = null, $this->view);
+            $this->load = load_view($controller = 'tarefas', $action = 'editar', $mensagem = null, $this->view, $this->view2);
         }
     }
 

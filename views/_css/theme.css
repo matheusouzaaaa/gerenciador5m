@@ -10,7 +10,9 @@ html, body{
 }
 body{
     padding-top: 45px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Arial', sans-serif;
+    /* font-family: 'Raleway', sans-serif; */
+    /* font-family: 'Open Sans', sans-serif; */
     background-image: url("../_images/dotted.png");
     overflow-x: hidden;
 }
@@ -1377,6 +1379,10 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
                 padding: 2px 8px; 
             }
 
+            .info-tarefa{
+                height: auto !important;
+            }
+
         }
 
         /* Landscape phone to portrait tablet */
@@ -1568,3 +1574,6 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         .info-horario{margin-left: 0; background: #292a2f; color: #fff; border-radius: 12px; margin: 0 auto; display: block;}
         .info-horario h4{text-align: center;}
         .info-horario .timer{text-align: center; font-size: 25px; display: block; margin: 15px 0px;}
+
+        .span8 h4 a{color:#e28271; text-decoration:none; transition: 1s}
+        .span8 h4 a:hover{color:#077db2; text-decoration:none; transition: 1s}

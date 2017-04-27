@@ -11,3 +11,4 @@
 <script type="text/javascript" src="<?php echo JS; ?>/jquery.elfinder.min.html"></script> 
 <script type="text/javascript" src="<?php echo JS; ?>/jquery.alertify.min.js"></script> 
 <script type="text/javascript" src="<?php echo JS; ?>/realm.js"></script>
+<script type="text/javascript" src="<?php echo JS; ?>/Chart.js"></script>
