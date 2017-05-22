@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Lista de Tarefas | Gerenciador</title>
+    <title>Lista de Tarefas | Gerenciador de Tarefas</title>
     <?php require_once 'views/_include/head.php'; ?>
     <?php require_once MODELS . '/Login/Login.class.php'; ?>
 </head>
