@@ -44,7 +44,7 @@
                                     <div class="control-group">
                                         <label class="control-label">Cliente</label>
                                         <div class="controls">
-                                        <input class="span12" type="text" placeholder="Escreva o nome do cliente" name="nome"/>
+                                            <input class="span12" type="text" placeholder="Escreva o nome do cliente" name="nome"  required="required"/>
                                         </div>
                                     </div>
 

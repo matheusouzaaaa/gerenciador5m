@@ -46,14 +46,14 @@
                                         <div class="control-group">
                                             <label class="control-label">Projeto</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" name="nome" value="<?php echo $param['nome']; ?>" />
+                                                <input class="span12" type="text" name="nome" value="<?php echo $param['nome']; ?>"  required="required" />
                                             </div>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label">Cliente</label>
                                             <div class="controls">
-                                                <select name="tb_clientes_id" tabindex="1" data-placeholder="Selecione..." class="span12">
+                                                <select name="tb_clientes_id" data-placeholder="Selecione..." class="span12"  required="required">
                                                     <option value="<?php echo $param['id_cliente']; ?>"><?php echo $param['nome_cliente']; ?></option>
                                                     <?php foreach ($view2 as $param): ?>
                                                         <option value="<?php echo $param['id']; ?>"><?php echo $param['nome']; ?></option>

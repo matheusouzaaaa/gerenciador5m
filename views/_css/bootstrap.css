@@ -7,7 +7,7 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-.clearfix {
+ .clearfix {
   *zoom: 1;
 }
 .clearfix:before,
@@ -1947,10 +1947,12 @@ legend + .control-group {
   clear: both;
 }
 .form-horizontal .control-label {
-  float: left;
+  /* float: left;
   width: 160px;
   padding-top: 5px;
-  text-align: right;
+  text-align: right; */
+  width: 100%;
+  padding-top: 5px;
 }
 .form-horizontal .controls {
   *display: inline-block;

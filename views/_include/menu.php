@@ -39,6 +39,11 @@
         </div>
         <div class="accordion-group">
             <div class="accordion-heading">
+            <a class="accordion-toggle b_C1F8A9" href="<?php echo HOME_URI; ?>/usuarios/chat"><i class="icon-comments"></i> <span>Chat</span></a>
+            </div>
+        </div>
+        <div class="accordion-group">
+            <div class="accordion-heading">
                 <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-user"></i> <span>Administrar</span></a>
             </div>
             <div id="collapse2" class="accordion-body collapse">

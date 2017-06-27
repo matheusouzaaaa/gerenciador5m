@@ -36,6 +36,50 @@ function minBR($string){
     return $string[1];
 }
 
+function dataMes($data) {
+
+
+    if ($data == '01') {
+        return "'JAN'";
+    }
+    if ($data == '02') {
+        return "'FEV'";
+    }
+    if ($data == '03') {
+        return "'MAR'";
+    }
+    if ($data == '04') {
+        return "'ABR'";
+    }
+    if ($data == '05') {
+        return "'MAI'";
+    }
+    if ($data == '06') {
+        return "'JUN'";
+    }
+    if ($data == '07') {
+        return "'JUL'";
+    }
+    if ($data == '08') {
+        return "'AGO'";
+    }
+    if ($data == '09') {
+        return "'SET'";
+    }
+    if ($data == '10') {
+        return "'OUT'";
+    }
+    if ($data == '11') {
+        return "'NOV'";
+    }
+    if ($data == '12') {
+        return "'DEZ'";
+    }
+    
+    return $data;
+}
+
+
 function load_view($controller, $action, $mensagem, $view, $view2, $view3, $view4, $view5, $view6) {
 
     require_once VIEWS . '/' . $controller . "/" . $controller . '-' . $action . '.php';

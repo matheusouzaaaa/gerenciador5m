@@ -73,6 +73,9 @@
                                             <input type="hidden" name="status" value="1"/>
                                             <input type="hidden" name="hora_final" value="<?php echo date("H:i"); ?>"/>
                                             <input type="hidden" name="data_final" value="<?php echo date("Y-m-d"); ?>"/>
+                                            <input type="hidden" name="ano_entrega" value="<?php echo date("Y"); ?>"/>
+                                            <input type="hidden" name="mes_entrega" value="<?php echo date("m"); ?>"/>
+                                            <input type="hidden" name="dia_entrega" value="<?php echo date("d"); ?>"/>
                                             <input type="submit" name="finalizar" value="Finalizar Tarefa" class="btn blue"/> 
                                         </div>
                                     </div>

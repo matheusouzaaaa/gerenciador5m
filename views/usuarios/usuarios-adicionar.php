@@ -45,14 +45,14 @@
                                         <div class="control-group">
                                             <label class="control-label">Nome Completo</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o nome do usuário" name="nome"/>
+                                                <input class="span12" type="text" placeholder="Escreva o nome do usuário" name="nome"  required="required"/>
                                             </div>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label">Categoria</label>
                                             <div class="controls">
-                                                <select name="permissao" tabindex="3" data-placeholder="Selecione..." class="span12">
+                                                <select name="permissao" data-placeholder="Selecione..." class="span12"  required="required">
                                                     <option value="">Selecione...</option>
                                                     <option value="admin">Admin</option>
                                                 </select>
@@ -61,13 +61,13 @@
                                         <div class="control-group">
                                             <label class="control-label">E-mail</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o e-mail do usuário" name="email"/>
+                                                <input class="span12" type="text" placeholder="Escreva o e-mail do usuário" name="email" required="required"/>
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">Password</label>
                                             <div class="controls">
-                                                <input class="span12" type="password" placeholder="Escreva a senha do usuário" name="password"/>
+                                                <input class="span12" type="password" placeholder="Escreva a senha do usuário" name="password" required="required"/>
                                             </div>
                                         </div>
                                         <div class="control-group">
@@ -79,14 +79,14 @@
                                         <div class="control-group">
                                             <label class="control-label">Telefone</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o telefone do usuário" name="telefone"/>
+                                                <input class="span12" type="text" placeholder="Escreva o telefone do usuário" name="telefone" required="required"/>
                                             </div>
                                         </div>
                                         
                                         <div class="control-group">
                                             <label class="control-label">Equipes</label>
                                             <div class="controls">
-                                                <select name="tb_equipes_id" tabindex="1" data-placeholder="Selecione..." class="span12">
+                                                <select name="tb_equipes_id" data-placeholder="Selecione..." class="span12" required="required">
                                                     <option value="">Selecione...</option>
                                                     <?php foreach ($view as $param): ?>
                                                         <option value="<?php echo $param['id']; ?>"><?php echo $param['nome']; ?></option>

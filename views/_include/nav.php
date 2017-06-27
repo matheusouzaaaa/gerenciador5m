@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="logo">
                 <a href="<?php echo HOME_URI; ?>">
-                    <img src="<?php echo IMAGES; ?>/logo-gerenciador.png" alt="Logo">
+                    <img src="<?php echo IMAGES; ?>/logo-gerenciador-novo.png" alt="Logo">
                 </a>
             </div>
             <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target=".nav-collapse">

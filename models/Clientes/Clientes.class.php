@@ -101,7 +101,7 @@ class Clientes extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela`");
+        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela` ORDER BY nome");
         $sql->execute();
         $sql->bind_result($this->id, $this->nome);
 

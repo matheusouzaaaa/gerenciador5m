@@ -46,7 +46,7 @@
                                         <div class="control-group">
                                             <label class="control-label">Título</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o título da tarefa" name="titulo" value="<?php echo $param['titulo']; ?>" />
+                                                <input class="span12" type="text" placeholder="Escreva o título da tarefa" name="titulo" value="<?php echo $param['titulo']; ?>"  required="required" />
                                             </div>
                                         </div>
 
@@ -59,7 +59,7 @@
                                         <div class="control-group">
                                             <label class="control-label">Usuários</label>
                                             <div class="controls">
-                                                <select name="tb_usuarios_id" tabindex="1" data-placeholder="Selecione..." class="span12">
+                                                <select name="tb_usuarios_id" data-placeholder="Selecione..." class="span12"  required="required">
                                                     <option value="<?php echo $param['tb_usuarios_id']; ?>"><?php echo $param['nome_usuario']; ?></option>
                                                     <?php foreach ($view2 as $param): ?>
                                                         <option value="<?php echo $param['id']; ?>"><?php echo $param['nome']; ?></option>

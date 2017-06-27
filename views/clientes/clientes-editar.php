@@ -37,7 +37,7 @@
 
                                         <?php if (isset($mensagem)): ?>
                                             <div class="note note-success">
-                                                <h4 class="block">
+                                                <h4 class="block"> required="required"
                                                     <?php echo $mensagem ?>
                                                 </h4>
                                             </div>
@@ -46,7 +46,7 @@
                                         <div class="control-group">
                                             <label class="control-label">Cliente</label>
                                             <div class="controls">
-                                            <input class="span12" type="text" name="nome" value="<?php echo $param['nome']; ?>" />
+                                            <input class="span12" type="text" name="nome" value="<?php echo $param['nome']; ?>"  required="required"/>
                                             </div>
                                         </div>
 

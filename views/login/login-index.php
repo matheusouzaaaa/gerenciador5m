@@ -24,6 +24,7 @@
                                             </h4>
                                         </div>
                                     <?php endif; ?>
+                                    <img src="<?php echo IMAGES; ?>/logo-transp2.png" style="width: 200px;display: block; margin: 0 auto 20px;">
                                     <form action="" method="post" onsubmit="return validaLogin(this);">
                                         <div class="control-group">
                                             <div class="controls">

@@ -21,6 +21,10 @@ class Tarefas extends Conexao {
     public $tb_tarefas_id;
     public $tb_projetos_id;
     public $session;
+    public $ano_entrega = "";
+    public $mes_entrega = "";
+    public $dia_entrega = "";
+    public $quantidade;
 
     function getId() {
         return $this->id;
@@ -88,6 +92,38 @@ class Tarefas extends Conexao {
 
     function getSession() {
         return $this->session;
+    }
+
+    function getAno_entrega() {
+        return $this->ano_entrega;
+    }
+
+    function getMes_entrega() {
+        return $this->mes_entrega;
+    }
+
+    function getDia_entrega() {
+        return $this->dia_entrega;
+    }
+
+    function getQuantidade() {
+        return $this->quantidade;
+    }
+
+    function setQuantidade($quantidade) {
+        $this->quantidade = $quantidade;
+    }
+
+    function setDia_entrega($dia_entrega) {
+        $this->dia_entrega = $dia_entrega;
+    }
+
+    function setMes_entrega($mes_entrega) {
+        $this->mes_entrega = $mes_entrega;
+    }
+
+    function setAno_entrega($ano_entrega) {
+        $this->ano_entrega = $ano_entrega;
     }
 
     function setId($id) {
@@ -234,7 +270,7 @@ class Tarefas extends Conexao {
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
             . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id "
             . "INNER JOIN `$this->tabela_users` as e on a.usuario_cadastra = e.id "
-            . "WHERE a.status = '2' and a.tb_usuarios_id = '$session' order by a.id desc");
+            . "WHERE a.status = '2' and a.tb_usuarios_id = '$session' order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto, $this->nome_criador);
         $sql->store_result();
@@ -272,7 +308,7 @@ class Tarefas extends Conexao {
             . "FROM `$this->tabela` as a "
             . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param order by a.id desc");
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_usuarios_id = $param order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -330,7 +366,7 @@ class Tarefas extends Conexao {
             . "FROM `$this->tabela` as a "
             . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_tarefas_tipo_id = $this->tb_tarefas_tipo_id order by a.id desc");
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.status= '2' and a.tb_tarefas_tipo_id = $this->tb_tarefas_tipo_id order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->data_final, $this->hora_final, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -390,7 +426,7 @@ class Tarefas extends Conexao {
             . "FROM `$this->tabela` as a "
             . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id order by a.id desc");
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -418,7 +454,7 @@ class Tarefas extends Conexao {
             . "FROM `$this->tabela` as a "
             . "INNER JOIN `$this->tabela_users` as b on a.tb_usuarios_id = b.id "
             . "INNER JOIN `$this->tabela_tipo_tarefas` as c on a.tb_tarefas_tipo_id = c.id "
-            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id desc");
+            . "INNER JOIN `$this->tabela_projetos` as d on a.tb_projetos_id = d.id WHERE a.id = $param order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->id, $this->titulo, $this->descricao, $this->data_cadastro, $this->hora_cadastro, $this->nome_usuario, $this->tipo, $this->nome_projeto);
 
@@ -474,7 +510,7 @@ class Tarefas extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT a.titulo, a.descricao, a.tb_usuarios_id, b.nome FROM `$this->tabela` as a inner join `$this->tabela_users` as b on a.tb_usuarios_id = b.id WHERE a.id='$param' order by a.id desc");
+        $sql = $this->mysqli->prepare("SELECT a.titulo, a.descricao, a.tb_usuarios_id, b.nome FROM `$this->tabela` as a inner join `$this->tabela_users` as b on a.tb_usuarios_id = b.id WHERE a.id='$param' order by a.id asc");
         $sql->execute();
         $sql->bind_result($this->titulo, $this->descricao, $this->tb_usuarios_id, $this->nome_usuario);
         $sql->fetch();
@@ -526,7 +562,7 @@ class Tarefas extends Conexao {
 
     public function listProjetos() {
 
-        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_projetos`");
+        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_projetos` order by nome");
         $sql->execute();
         $sql->bind_result($this->id, $this->nome);
 
@@ -542,8 +578,8 @@ class Tarefas extends Conexao {
     }
 
     public function finalizar($param) {
-        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET data_final = ?, hora_final= ?, status= ? WHERE id = ?");
-        $sql->bind_param('ssii', $this->data_final, $this->hora_final, $this->status, $param);
+        $sql = $this->mysqli->prepare("UPDATE `$this->tabela` SET data_final = ?, hora_final= ?, dia_entrega= ?, mes_entrega= ?, ano_entrega= ?, status= ? WHERE id = ?");
+        $sql->bind_param('ssiiiii', $this->data_final, $this->hora_final, $this->dia_entrega, $this->mes_entrega, $this->ano_entrega, $this->status, $param);
         $sql->execute();
 
         header('Location:' . HOME_URI . '/tarefas/lista/');
@@ -599,6 +635,52 @@ class Tarefas extends Conexao {
             $lista[] = $GeralModel;
         }
         return $lista;
+    }
+
+    public function listGraficoTipoTarefa(){
+
+        $sql = $this->mysqli->prepare("SELECT COUNT(*), YEAR(data_final), MONTH(data_final), DAY(data_final) FROM `$this->tabela` WHERE status = '1' and tb_tarefas_tipo_id='$this->tb_tarefas_tipo_id' GROUP BY 2,3");
+        $sql->execute();
+        $sql->bind_result($this->quantidade, $this->ano_entrega, $this->mes_entrega, $this->dia_entrega);
+
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $GeralModel['quantidade'] = $this->quantidade;
+            $GeralModel['ano_entrega'] = $this->ano_entrega;
+            $GeralModel['mes_entrega'] = $this->mes_entrega;
+            $GeralModel['dia_entrega'] = $this->dia_entrega;
+
+            $lista[] = $GeralModel;
+        }
+
+        return $lista;
+
+        
+    }
+
+    public function listGraficoUsuarios(){
+
+        $sql = $this->mysqli->prepare("SELECT COUNT(*), YEAR(data_final), MONTH(data_final), DAY(data_final) FROM `$this->tabela` WHERE status = '1' and tb_usuarios_id='$this->tb_usuarios_id' GROUP BY 2,3");
+        $sql->execute();
+        $sql->bind_result($this->quantidade, $this->ano_entrega, $this->mes_entrega, $this->dia_entrega);
+
+
+        $lista = array();
+        while ($row = $sql->fetch()) {
+
+            $GeralModel['quantidade'] = $this->quantidade;
+            $GeralModel['ano_entrega'] = $this->ano_entrega;
+            $GeralModel['mes_entrega'] = $this->mes_entrega;
+            $GeralModel['dia_entrega'] = $this->dia_entrega;
+
+            $lista[] = $GeralModel;
+        }
+
+        return $lista;
+
+        
     }
 
 }

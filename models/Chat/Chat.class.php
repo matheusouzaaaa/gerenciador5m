@@ -5,7 +5,7 @@ require_once MODELS . '/Conexao/Conexao.class.php';
 class Chat extends Conexao {
 
     public $id;
-    public $user_id;
+    public $tb_usuarios_id;
     public $data;
     public $horario;
     public $texto;
@@ -14,8 +14,8 @@ class Chat extends Conexao {
         return $this->id;
     }
 
-    function getUser_id() {
-        return $this->user_id;
+    function getTb_usuarios_id() {
+        return $this->tb_usuarios_id;
     }
 
     function getData() {
@@ -34,8 +34,8 @@ class Chat extends Conexao {
         $this->id = $id;
     }
 
-    function setUser_id($user_id) {
-        $this->user_id = $user_id;
+    function setTb_usuarios_id($tb_usuarios_id) {
+        $this->tb_usuarios_id = $tb_usuarios_id;
     }
 
     function setData($data) {
@@ -55,24 +55,11 @@ class Chat extends Conexao {
         
         $this->session = $_SESSION['id'];
         $this->tabela = "tb_chat";
-        $this->tabela_users = "tb_users";
-        $this->tabela_menus = "tb_menus";
+        $this->tabela_usuarios = "tb_usuarios";
 
-        $this->id = '15';
-        $this->ativo = "1";
-        $sql = $this->mysqli->prepare("SELECT * FROM `$this->tabela_menus` WHERE id='$this->id' AND ativo='$this->ativo'");
-        $sql->execute();
-        $sql->store_result();
-        $rows = $sql->num_rows;
-
-        if ($rows === 0) {
-            header('Location:' . HOME_URI . '/paginas/premium/');
-        }
-        if ($rows === 1) {
-            return true;
-        }
         if (!isset($_SESSION['id'])) {
             header('Location:' . HOME_URI . '/login/index/');
+            exit;
         }
 
         
@@ -82,7 +69,7 @@ class Chat extends Conexao {
 
         $this->perm_superadmin = 'superadmin';
         $this->perm_admin = 'admin';
-        $perm = $this->mysqli->prepare("SELECT * FROM `$this->tabela_users` WHERE id='$this->session' AND permissao='$this->perm_superadmin' OR permissao='$this->perm_admin'");
+        $perm = $this->mysqli->prepare("SELECT * FROM `$this->tabela_usuarios` WHERE id='$this->session' AND permissao='$this->perm_superadmin' OR permissao='$this->perm_admin'");
         $perm->execute();
         $perm->store_result();
         $rows = $perm->num_rows;
@@ -96,13 +83,13 @@ class Chat extends Conexao {
     public function permissaosalvar() {
 
         $this->operador = '1';
-        $perm = $this->mysqli->prepare("SELECT * FROM `$this->tabela_users` WHERE id='$this->session' AND operador='$this->operador'");
+        $perm = $this->mysqli->prepare("SELECT * FROM `$this->tabela_usuarios` WHERE id='$this->session'");
         $perm->execute();
         $perm->store_result();
         $rows = $perm->num_rows;
 
         if ($rows === 0) {
-            header('Location:' . HOME_URI . '/paginas/erro/');
+            echo "ERRO!"
             exit;
         }
     }
@@ -113,7 +100,7 @@ class Chat extends Conexao {
         $this->permissaosalvar();
 
         $sql = $this->mysqli->prepare("INSERT INTO `$this->tabela`
-            (tb_users_id, data, horario, texto) 
+            (tb_usuarios_id, data, horario, texto) 
             VALUES (?, ?, ?, ?)");
         $sql->bind_param('isss', $_SESSION['id'], $this->data, $this->horario, $this->texto);
         $sql->execute();
@@ -131,7 +118,7 @@ class Chat extends Conexao {
     public function listAll() {
 
         $sql = $this->mysqli->prepare("
-            SELECT a.id, a.data, a.horario, a.texto, b.nome FROM `$this->tabela` AS a INNER JOIN `$this->tabela_users` AS b ON b.id = a.tb_users_id ORDER BY a.id DESC LIMIT 100
+            SELECT a.id, a.data, a.horario, a.texto, b.nome FROM `$this->tabela` AS a INNER JOIN `$this->tabela_usuarios` AS b ON b.id = a.tb_usuarios_id ORDER BY a.id DESC LIMIT 100
                 ");
         $sql->execute();
         $sql->bind_result($this->id, $this->data, $this->horario, $this->texto, $this->nome);

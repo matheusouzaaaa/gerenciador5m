@@ -147,7 +147,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 /*buttons*/
 .navbar .btn.btn-navbar{
-    background: #E28271;
+    background: #18afce;
     margin: 7px 5px 7px 0;
 }
 .btn-circle{
@@ -396,7 +396,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
     margin: 0 15px 0 0;
 }
 .user_side h5{
-    color: #E28271;
+    color: #ffffff;
     line-height: 16px;
     margin: 8px 0 0;
 }
@@ -668,7 +668,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
     }
 
     .widget-tasks-assigned .rightboxes li a{
-        background: #e28271;
+        background: #18afce;
         padding: 10px;
         display: block;
         margin: 5px auto;
@@ -880,7 +880,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         background-color: #fff;
     }
     .widget-body .table strong{
-        color:#E28271;
+        color:#18afce;
     }
     .widget-body .table{
         margin-bottom: 0;
@@ -1020,11 +1020,11 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         border:1px solid #7ABC56;
     }
 
-    .priority-high{border-right:4px solid #F79999;}
+    .priority-high{border-right:4px solid #18afce;}
     .priority-medium{border-right:4px solid #F5C294;}
     .priority-low{border-right:4px solid #C3F7A7;}
 
-    .priority-high-left{border-left:4px solid #F79999;}
+    .priority-high-left{border-left:4px solid #18afce;}
     .priority-medium-left{border-left:4px solid #F5C294;}
     .priority-low-left{border-left:4px solid #C3F7A7;}
 
@@ -1058,7 +1058,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         margin: 0 10px 0 0;
         float:right;
         display:inline;
-        color:#E28271;
+        color:#18afce;
 
     }
     .widget-analytics-small h5{
@@ -1214,7 +1214,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         margin: 0;
     }
     .widget-comments .comment-bubble h4 strong{
-        color:#e28271;
+        color:#18afce;
     }
 
 
@@ -1514,7 +1514,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         }
 
         .breadcrumb li a, .breadcrumb li p{
-            color: #e28271; padding: 5px; border: 1px solid; border-radius: 4px; text-decoration: none
+            color: #18afce; padding: 5px; border: 1px solid; border-radius: 4px; text-decoration: none
         }
 
         .circle a{
@@ -1522,7 +1522,7 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         }
         .circle a:hover{
             text-decoration: none;
-            color: #e28271;
+            color: #18afce;
         }
         .btn-group:first-child {
             position: absolute;
@@ -1575,5 +1575,28 @@ table.table thead .sorting_desc_disabled { background: url('../_images/sort_desc
         .info-horario h4{text-align: center;}
         .info-horario .timer{text-align: center; font-size: 25px; display: block; margin: 15px 0px;}
 
-        .span8 h4 a{color:#e28271; text-decoration:none; transition: 1s}
+        .span8 h4 a{color:#18afce; text-decoration:none; transition: 1s}
         .span8 h4 a:hover{color:#077db2; text-decoration:none; transition: 1s}
+
+        .ui-button-icon-only .ui-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -8px;
+            margin-left: -24px !important; 
+        }
+        .ui-button-icon-only {
+            width: 0px !important;
+            box-sizing: border-box;
+            text-indent: -9999px;
+            white-space: nowrap;
+        }
+
+        .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .ui-widget.ui-widget-content{
+            border: 1px solid #c5c5c5 !important;
+        }

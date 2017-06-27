@@ -102,7 +102,7 @@ class Projetos extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT a.id, a.nome, b.nome FROM `$this->tabela` as a INNER JOIN `$this->tabela_clientes` as b ON a.tb_clientes_id = b.id ");
+        $sql = $this->mysqli->prepare("SELECT a.id, a.nome, b.nome FROM `$this->tabela` as a INNER JOIN `$this->tabela_clientes` as b ON a.tb_clientes_id = b.id ORDER BY a.nome");
         $sql->execute();
         $sql->bind_result($this->id, $this->nome, $this->nome_cliente);
 
@@ -143,7 +143,7 @@ class Projetos extends Conexao {
 
         $this->permissao();
 
-        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_clientes`");
+        $sql = $this->mysqli->prepare("SELECT id, nome FROM `$this->tabela_clientes` ORDER BY nome");
         $sql->execute();
         $sql->bind_result($this->id, $this->nome);
 

@@ -43,7 +43,8 @@
                                         <li class="priority-high-left">
                                             <div class="content">
                                                 <h5>
-                                                    #<?php echo $param['id']; ?> <?php echo $param['titulo']; ?>
+                                                    <a href="<?php echo HOME_URI . "/tarefas/tarefa/" . $param['id']; ?>">#<?php echo $param['id']; ?> <?php echo $param['titulo']; ?>
+                                                    </a>
                                                 </h5>
                                                 <span>
                                                     <strong>Data e hora de Cadastro:</strong> <?php echo dataBR($param['data_cadastro']); ?> às <?php echo horaBR($param['hora_cadastro']). ":" . minBR($param['hora_cadastro']); ?> | 

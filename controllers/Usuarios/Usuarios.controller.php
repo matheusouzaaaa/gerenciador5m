@@ -63,4 +63,10 @@ class UsuariosController extends Usuarios {
         header('Location:' . HOME_URI . '/usuarios/lista');
     }
 
+    public function chat() {
+
+        // $this->view = $this->model->listAll();
+        $this->load = load_view($controller = 'usuarios', $action = 'chat', $mensagem = null, $this->view = null);
+    }
+
 }

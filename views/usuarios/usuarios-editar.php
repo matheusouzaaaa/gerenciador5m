@@ -46,28 +46,28 @@
                                         <div class="control-group">
                                             <label class="control-label">Nome Completo</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o nome do usuário" name="nome" value="<?php echo $param['nome']; ?>" />
+                                                <input class="span12" type="text" placeholder="Escreva o nome do usuário" name="nome" value="<?php echo $param['nome']; ?>" required="required" />
                                             </div>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label">E-mail</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o e-mail do usuário" name="email" value="<?php echo $param['email']; ?>"/>
+                                                <input class="span12" type="text" placeholder="Escreva o e-mail do usuário" name="email" value="<?php echo $param['email']; ?>" required="required"/>
                                             </div>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label">Cargo</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o cargo do usuário" name="cargo" value="<?php echo $param['cargo']; ?>"/>
+                                                <input class="span12" type="text" placeholder="Escreva o cargo do usuário" name="cargo" value="<?php echo $param['cargo']; ?>" required="required"/>
                                             </div>
                                         </div>
 
                                         <div class="control-group">
                                             <label class="control-label">Telefone</label>
                                             <div class="controls">
-                                                <input class="span12" type="text" placeholder="Escreva o telefone do usuário" name="telefone"  value="<?php echo $param['telefone']; ?>"/>
+                                                <input class="span12" type="text" placeholder="Escreva o telefone do usuário" name="telefone"  value="<?php echo $param['telefone']; ?>" required="required"/>
                                             </div>
                                         </div>
 

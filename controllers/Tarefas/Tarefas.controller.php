@@ -21,7 +21,27 @@ class TarefasController extends Tarefas {
 
     public function graficos() {
 
-        $this->load = load_view($controller = 'tarefas', $action = 'graficos', $mensagem = null, $this->view = null);
+        if ($_POST['submit-tipo-tarefa']) {
+
+            $this->model->setTb_tarefas_tipo_id($_POST['tb_tarefas_tipo_id']);
+            $this->view = $this->model->listTarefasTipo();
+            $this->view2 = $this->model->listUsuarios();
+            $this->view3 = $this->model->listGraficoTipoTarefa();
+            $this->load = load_view($controller = 'tarefas', $action = 'graficos', $mensagem = null,$this->view, $this->view2, $this->view3);
+        }
+        if ($_POST['submit-usuario']) {
+
+            $this->model->setTb_usuarios_id($_POST['tb_usuario_id']);
+            $this->view = $this->model->listTarefasTipo();
+            $this->view2 = $this->model->listUsuarios();
+            $this->view4 = $this->model->listGraficoUsuarios();
+            $this->load = load_view($controller = 'tarefas', $action = 'graficos', $mensagem = null,$this->view, $this->view2, $this->view3 = null, $this->view4);
+
+        } else {
+            $this->view = $this->model->listTarefasTipo();
+            $this->view2 = $this->model->listUsuarios();
+            $this->load = load_view($controller = 'tarefas', $action = 'graficos', $mensagem = null, $this->view, $this->view2);
+        }
     }
 
     public function lista() {
@@ -42,6 +62,9 @@ class TarefasController extends Tarefas {
         if (isset($_POST['finalizar'])) {
             $this->model->setData_final($_POST['data_final']);
             $this->model->setHora_final($_POST['hora_final']);
+            $this->model->setAno_entrega($_POST['ano_entrega']);
+            $this->model->setMes_entrega($_POST['mes_entrega']);
+            $this->model->setDia_entrega($_POST['dia_entrega']);
             $this->model->setStatus($_POST['status']);
             $this->model->finalizar($param, $this->model);
 
@@ -88,7 +111,7 @@ class TarefasController extends Tarefas {
             $this->load = load_view($controller = 'tarefas', $action = 'entregues', $mensagem = null, $this->view, $this->view2, $this->view3);
         }
 
-        
+
     }
 
     public function adicionar() {

@@ -35,7 +35,7 @@
                             <?php foreach ($view as $param): ?>
                                 <div class="circle">
                                     <a href="<?php echo HOME_URI . "/tarefas/entregues/" . $param['id']; ?>">
-                                        <img src="<?php echo IMAGES; ?>/logo5m.png"/>
+                                        <img style="margin: 10px 0px;" src="<?php echo IMAGES; ?>/logo-transp.png"/>
                                         <?php echo $param['nome']; ?>
                                     </a>
                                 </div>
